@@ -7,8 +7,3 @@
  	<?php wp_footer(); ?>
 </body> <!--end body-->
 </html> <!--end html -->
-<?php
-    echo '<pre>';
-    print_r ($wp_query);
-    echo '</pre>';
-?>

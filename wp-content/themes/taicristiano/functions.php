@@ -100,3 +100,96 @@ if (!function_exists('taicristano_pagination')) {
   		</nav><?php
   	}
 }
+
+if (!function_exists('taicristano_thumbnail')) {
+  	function taicristano_thumbnail($size) {
+	    // Chỉ hiển thumbnail với post không có mật khẩu
+	    if (!is_single() &&  has_post_thumbnail()  && !post_password_required() || has_post_format( 'image' ) ) : ?>
+	      	<figure class="post-thumbnail"><?php the_post_thumbnail( $size ); ?></figure><?php
+	    endif;
+  	}
+}
+
+if (!function_exists('taicristano_entry_header') ) {
+  	function taicristano_entry_header() {
+	    if ( is_single() ) : ?>
+	      	<h1 class="entry-title">
+	        	<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+	          	<?php the_title(); ?>
+	        	</a>
+	      	</h1>
+	    <?php else : ?>
+	      	<h2 class="entry-title">
+	        	<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+	          	<?php the_title(); ?>
+	        	</a>
+	      	</h2><?php
+	    endif;
+  	}
+}
+
+if( ! function_exists( 'taicristano_entry_meta' ) ) {
+  	function taicristano_entry_meta() {
+	    if ( ! is_page() ) :
+	      	echo '<div class="entry-meta">';
+	        // Hiển thị tên tác giả, tên category và ngày tháng đăng bài
+	        printf( __('<span class="author">Posted by %1$s</span>', 'taicristano'), get_the_author() );
+	 
+	        printf( __('<span class="date-published"> at %1$s</span>', 'taicristano'), get_the_date() );
+	 
+	        printf( __('<span class="category"> in %1$s</span>', 'taicristano'), get_the_category_list( ', ' ) );
+	 
+	        // Hiển thị số đếm lượt bình luận
+	        if ( comments_open() ) :
+	          	echo ' <span class="meta-reply">';
+		            comments_popup_link(
+		              __('Leave a comment', 'taicristano'),
+		              __('One comment', 'taicristano'),
+		              __('% comments', 'taicristano'),
+		              __('Read all comments', 'taicristano')
+		             );
+	          	echo '</span>';
+	        endif;
+	      	echo '</div>';
+	    endif;
+	}
+}
+
+function taicristano_readmore() {
+  return '...<a class="read-more" href="'. get_permalink( get_the_ID() ) . '">' . __('Read More', 'taicristano') . '</a>';
+}
+add_filter('excerpt_more', 'taicristano_readmore');
+
+if (!function_exists('taicristano_entry_content')) {
+  	function taicristano_entry_content() {
+	    if (!is_single()) :
+	    	the_content( sprintf(
+				__( 'Continue reading %s', 'taicristano' ),
+				get_the_title( '<span class="screen-reader-text">', '</span>', false )
+			) );
+	      	// the_excerpt();
+	    else :
+	      	the_content();
+	      	/*
+	       	* Code hiển thị phân trang trong post type
+	       	*/
+	      	$link_pages = array(
+		        'before' => __('<p>Page:', 'taicristano'),
+		        'after' => '</p>',
+		        'nextpagelink'     => __( 'Next page', 'taicristano' ),
+		        'previouspagelink' => __( 'Previous page', 'taicristano' )
+	      	);
+	      	wp_link_pages( $link_pages );
+	    endif;
+  	}
+}
+
+if (!function_exists('thachpham_entry_tag')) {
+  	function thachpham_entry_tag() {
+	    if (has_tag()) :
+	      	echo '<div class="entry-tag">';
+	      	printf( __('Tagged in %1$s', 'thachpham'), get_the_tag_list('', ', '));
+	      	echo '</div>';
+	    endif;
+  	}
+}
