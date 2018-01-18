@@ -184,8 +184,8 @@ if (!function_exists('taicristano_entry_content')) {
   	}
 }
 
-if (!function_exists('thachpham_entry_tag')) {
-  	function thachpham_entry_tag() {
+if (!function_exists('taicristano_entry_tag')) {
+  	function taicristano_entry_tag() {
 	    if (has_tag()) :
 	      	echo '<div class="entry-tag">';
 	      	printf( __('Tagged in %1$s', 'thachpham'), get_the_tag_list('', ', '));
