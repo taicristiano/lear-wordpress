@@ -81,3 +81,22 @@ if(!function_exists('taicristano_menu')) {
 	    wp_nav_menu($menu);
 	}
 }
+
+if (!function_exists('taicristano_pagination')) {
+	function taicristano_pagination() {
+	    if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+	      	return '';
+	    }
+	?>
+ 
+  	<nav class="pagination" role="navigation">
+    	<?php if ( get_next_post_link() ) : ?>
+      	<div class="prev"><?php next_posts_link( __('Older Posts', 'thachpham') ); ?></div>
+    	<?php endif; ?>
+ 
+    	<?php if ( get_previous_post_link() ) : ?>
+      	<div class="next"><?php previous_posts_link( __('Newer Posts', 'thachpham') ); ?></div>
+    	<?php endif; ?>
+  		</nav><?php
+  	}
+}
