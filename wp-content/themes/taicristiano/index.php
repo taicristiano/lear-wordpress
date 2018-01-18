@@ -10,7 +10,7 @@
         	<?php get_template_part( 'content', 'none' ); ?>
         <?php endif; ?>
     </section>
-	<section id="sidebar"></section>
+	<section id="sidebar"><?php get_template_part( 'sidebar', get_post_format() ); ?></section>
 </div>
 
 <?php get_footer(); ?>
