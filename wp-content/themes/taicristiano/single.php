@@ -11,7 +11,7 @@
         	<?php get_template_part( 'content', 'none' ); ?>
         <?php endif; ?>
     </section>
-	<section id="sidebar"></section>
+	<section id="sidebar"><?php get_sidebar(); ?></section>
 </div>
 
 <?php get_footer(); ?>
